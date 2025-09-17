@@ -8,6 +8,18 @@ body {
   font-family: "Segoe UI", sans-serif;
 }
 
+:root{
+  /* --anim-medium: 460ms; */
+  --anim-short: 320ms;
+  --anim-medium: 620ms;
+  /* --anim-long: 680ms; */
+  --anim-long: 900ms;
+  --featured-duration: 920ms;
+  --partner-duration: 420ms;
+  --easing-common: cubic-bezier(.22,.9,.3,1);
+}
+
+
 header {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
@@ -17,8 +29,6 @@ header {
 }
 
 .navbar {
-  /* max-width: 1200px; */
-  /* margin: auto; */
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
@@ -63,7 +73,6 @@ header {
 
 .nav-btn:hover {
   background-color: #00b5e294;
-  /* box-shadow: inset 0 0 0 2px #e00a0a; */
 }
 
 .nav-btn-joinus {
@@ -85,7 +94,7 @@ header {
 .nav-links {
   list-style: none;
   display: flex;
-  flex-direction: row; /* important for desktop layout */
+  flex-direction: row; 
   gap: 1.5rem;
 }
 
@@ -569,7 +578,9 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  background-color: #eef9fb; /* subtle soft blue */
+  /* background-color: #eef9fb; subtle soft blue */
+  background-color: #dcf8fd; 
+  border: 1px solid #a8ecf834;
   max-width: 1000px;
   margin: auto;
   padding: 2rem;
@@ -1347,4 +1358,138 @@ header {
   height: 220px;
   margin: 0 auto;
   text-align: center;
+}
+
+
+/* ======= ENTRY ANIMATIONS (featured, testimonials, partners) ======= */
+/* Default (hidden) state for elements that will animate in */
+.animate-in {
+  opacity: 0;
+  transform: translateY(18px) scale(0.995);
+  will-change: opacity, transform;
+  transition: opacity var(--anim-medium) var(--easing-common),
+              transform var(--anim-medium) var(--easing-common);
+  transition-delay: 0ms; /* JS may set inline delay for stagger */
+}
+
+/* Visible state applied by JS (or server-side class) */
+.animate-in.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger helper — when you want sequential reveal within a container
+   Add class "stagger" to the container, and JS will add inline delay styles.
+   This CSS ensures transition uses delay if provided. */
+.animate-in {
+  transition-delay: 0ms; /* default, JS will set style="transition-delay:XXms" for stagger */
+}
+
+/* ---------- Featured cards: slightly stronger lift --------- */
+.featured-card.animate-in {
+  transform: translateY(24px) scale(0.995);
+  transition-duration: var(--featured-duration);
+}
+.featured-card.animate-in.in-view {
+  transform: translateY(0) scale(1);
+}
+
+/* Keep hover scale smooth */
+.featured-card .image-wrapper img {
+  will-change: transform;
+  transition: transform 600ms var(--easing-common);
+}
+.featured-card:hover .image-wrapper img {
+  transform: scale(1.06);
+}
+
+/* Make image overlay & scale remain CSS-only for hover — keep existing hover behavior */
+.featured-card .image-wrapper img {
+  will-change: transform;
+  transition: transform 600ms cubic-bezier(.2,.85,.25,1);
+}
+.featured-card:hover .image-wrapper img {
+  transform: scale(1.06);
+}
+
+/* ---------- Testimonial cards: fade + slide from bottom --------- */
+.testimonial-card.animate-in {
+  transform: translateY(28px) scale(0.995);
+  transition-duration: var(--anim-medium);
+}
+.testimonial-card.animate-in.in-view {
+  transform: translateY(0) scale(1);
+}
+
+/* ---------- Partners logos: pop-in with subtle scale --------- */
+/* apply to each partner logo element (the <a> or <img> inside .partners-logos) */
+.partners-logos .partner.animate-in {
+  transform: translateY(6px) scale(0.96);
+  opacity: 0;
+  transition: transform var(--partner-duration) var(--easing-common),
+              opacity var(--partner-duration) var(--easing-common);
+}
+.partners-logos .partner.animate-in.in-view {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Make sure images inside partner links remain crisp */
+.partners-logos .partner img { display:block; width:auto; height:50px; }
+
+/* ---------- Accessibility: respect reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .animate-in.in-view,
+  .featured-card .image-wrapper img,
+  .partners-logos .partner img {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* ========== HERO TEXT: animate-in rules ========== */
+/* Disable the old keyframe auto-play for hero text so we can control it via classes */
+.hero-text {
+  animation: none !important;
+}
+
+/* container & children default (hidden) */
+.hero-text.animate-in,
+.hero-text h1.animate-in,
+.hero-text p.animate-in {
+  opacity: 0;
+  transform: translateY(12px) scale(1.02);
+  will-change: opacity, transform;
+  transition: opacity var(--anim-long) var(--easing-common),
+              transform var(--anim-long) var(--easing-common);
+  transition-delay: 0ms; /* JS will stagger h1/p with small delays */
+}
+
+/* visible state */
+.hero-text.in-view,
+.hero-text h1.in-view,
+.hero-text p.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* small stagger for hero children (h1 then p) is applied by JS inline delays */
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .animate-in.in-view,
+  .featured-card .image-wrapper img,
+  .partners-logos .partner img,
+  .hero-text.animate-in,
+  .hero-text h1.animate-in,
+  .hero-text p.animate-in {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }

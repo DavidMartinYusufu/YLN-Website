@@ -59,56 +59,56 @@
 
         <ul class="nav-links" id="nav-links">
           <li class="nav-item dropdown">
-            <a href="/index.html" class="nav-link"> HOME </a>
+            <a href="/index.html" class="nav-link"> Home </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link">
-              WHO WE ARE <i class="fas fa-chevron-down dropdown-icon"></i>
+              Who We Are <i class="fas fa-chevron-down dropdown-icon"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="/About_Page/aboutus.html">ABOUT</a></li>
-              <li><a href="/About_Page/boardmembers.html">BOARD MEMBERS</a></li>
-              <li><a href="/About_Page/teammembers.html">TEAM MEMBERS</a></li>
+              <li><a href="/About_Page/aboutus.html">About</a></li>
+              <li><a href="/About_Page/boardmembers.html">Board Members</a></li>
+              <li><a href="/About_Page/teammembers.html">Team Members</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link">
-              OUR WORK <i class="fas fa-chevron-down dropdown-icon"></i>
+              Our Work <i class="fas fa-chevron-down dropdown-icon"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="/Our_Work/active.html">ACTIVE CITIZENSHIP</a></li>
+              <li><a href="/Our_Work/active.html">Active Citizenship</a></li>
               <li>
-                <a href="/Our_Work/inclusive.html">INCLUSIVE EDUCATION</a>
+                <a href="/Our_Work/inclusive.html">Inclusive Education</a>
               </li>
-              <li><a href="/Our_Work/youth.html">YOUTH LEADERSHIP</a></li>
-              <li><a href="/Our_Work/climate.html">CLIMATE IMPACT</a></li>
+              <li><a href="/Our_Work/youth.html">Youth Leadership</a></li>
+              <li><a href="/Our_Work/climate.html">Climate Impact</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link">
-              RESOURCES <i class="fas fa-chevron-down dropdown-icon"></i>
+              Resources <i class="fas fa-chevron-down dropdown-icon"></i>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="/Resources_Page/annualreports.html">ANNUAL REPORTS</a>
+                <a href="/Resources_Page/annualreports.html">Annual Reports</a>
               </li>
               <li>
-                <a href="/Resources_Page/strategicplan.html">STRATEGIC PLAN</a>
+                <a href="/Resources_Page/strategicplan.html">Strategic Plan</a>
               </li>
               <li>
-                <a href="/Resources_Page/policybriefs.html">POLICY BRIEFS</a>
+                <a href="/Resources_Page/policybriefs.html">Policy Briefs</a>
               </li>
               <li>
                 <a href="/Resources_Page/programsandimpactreports.html"
-                  >PROGRAMS and IMPACT REPORTS</a
+                  >Programs and Impact Reports</a
                 >
               </li>
             </ul>
           </li>
 
-          <li><a href="stories.html">OUR STORIES</a></li>
+          <li><a href="stories.html">Our Stories</a></li>
           <li><a href="/joinus.html" class="join-us">Join Us</a></li>
           <li><a href="donate.html" class="donate-btn">DONATE</a></li>
         </ul>
@@ -116,7 +116,7 @@
         <div class="nav-btn-container">
           <a href="/joinus.html" class="nav-btn-joinus">Join Us</a>
 
-          <a href="/donate.html" class="nav-btn">DONATE</a>
+          <a href="/donate.html" class="nav-btn">Donate</a>
         </div>
       </nav>
     </header>
@@ -218,7 +218,11 @@
           </div>
         </a>
 
-        <a href="/Our_Work/youth.html#YLDP" class="featured-card" data-aos="fade-up">
+        <a
+          href="/Our_Work/youth.html#YLDP"
+          class="featured-card"
+          data-aos="fade-up"
+        >
           <div class="image-wrapper">
             <img
               src="/Images/Website images and resource 2025/YLDP/475796010_1034087382083633_6963225385315587401_n.jpg"
@@ -233,7 +237,11 @@
           </div>
         </a>
 
-        <a href="/Our_Work/youth.html#IGNITE-TALK" class="featured-card" data-aos="fade-up">
+        <a
+          href="/Our_Work/youth.html#IGNITE-TALK"
+          class="featured-card"
+          data-aos="fade-up"
+        >
           <div class="image-wrapper">
             <img
               src="/Images/Website images and resource 2025/Ignite Talk/IMG_1884.webp"
@@ -676,11 +684,108 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      AOS.init({
-        duration: 1000,
-        easing: "ease-in-out",
-        once: true,
-      });
+      // AOS.init({
+      //   duration: 1000,
+      //   easing: "ease-in-out",
+      //   once: true,
+      // });
+
+      // ======= IntersectionObserver to trigger CSS-only animations (includes hero text) =======
+      (function () {
+        // selectors
+        const featuredCards = document.querySelectorAll(".featured-card");
+        const testimonialCards = document.querySelectorAll(".testimonial-card");
+        const partnerItems = document.querySelectorAll(
+          ".partners-logos a, .partners-logos .partner"
+        );
+        const heroText = document.querySelector(".hero-text");
+
+        // add .animate-in class where missing
+        function prepNodes(list) {
+          list.forEach((node) => {
+            if (node && !node.classList.contains("animate-in"))
+              node.classList.add("animate-in");
+          });
+        }
+
+        prepNodes(featuredCards);
+        prepNodes(testimonialCards);
+        prepNodes(partnerItems);
+        if (heroText && !heroText.classList.contains("animate-in"))
+          heroText.classList.add("animate-in");
+
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target;
+
+              // Special handling for hero text: stagger its children (h1 then p)
+              if (el.classList && el.classList.contains("hero-text")) {
+                const h1 = el.querySelector("h1");
+                const p = el.querySelector("p");
+
+                // ensure children have animate-in class and set delays
+                if (h1) {
+                  if (!h1.classList.contains("animate-in"))
+                    h1.classList.add("animate-in");
+                  h1.style.transitionDelay = "0ms";
+                  h1.classList.add("in-view");
+                }
+                if (p) {
+                  if (!p.classList.contains("animate-in"))
+                    p.classList.add("animate-in");
+                  p.style.transitionDelay = "120ms";
+                  p.classList.add("in-view");
+                }
+
+                // also reveal the container (useful if you want container-level effect)
+                el.classList.add("in-view");
+
+                obs.unobserve(el);
+                return;
+              }
+
+              // For normal elements (featured/testimonial/partner), apply small stagger based on sibling index
+              if (!el.style.transitionDelay) {
+                const parent = el.parentElement;
+                if (parent) {
+                  const siblings = Array.from(parent.children).filter(
+                    (child) =>
+                      child.classList && child.classList.contains("animate-in")
+                  );
+                  const idx = siblings.indexOf(el);
+                  if (idx >= 0) {
+                    const delay = Math.min(200, idx * 80); // cap delay to avoid long waits
+                    el.style.transitionDelay = `${delay}ms`;
+                  }
+                }
+              }
+
+              el.classList.add("in-view");
+              obs.unobserve(el); // run once
+            });
+          },
+          {
+            threshold: 0.18,
+          }
+        );
+
+        // Start observing
+        featuredCards.forEach((n) => observer.observe(n));
+        testimonialCards.forEach((n) => observer.observe(n));
+        partnerItems.forEach((n) => observer.observe(n));
+        if (heroText) observer.observe(heroText);
+
+        // convenient API for dynamic content
+        window.observeNewElements = function (nodeList) {
+          nodeList.forEach((n) => {
+            if (!n.classList.contains("animate-in"))
+              n.classList.add("animate-in");
+            observer.observe(n);
+          });
+        };
+      })();
     </script>
 
     <script src="/index.js"></script>
