@@ -19,7 +19,6 @@ body {
   --easing-common: cubic-bezier(.22,.9,.3,1);
 }
 
-
 header {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
@@ -584,7 +583,7 @@ header {
   max-width: 1000px;
   margin: auto;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 15px;
   /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
 }
 
@@ -632,7 +631,7 @@ header {
   width: 100%;
   height: 180px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 13px;
   margin-bottom: 1rem;
 }
 
@@ -667,7 +666,6 @@ header {
 .featured-card:hover .image-wrapper img {
   transform: scale(1.05);
 }
-
 
 .featured {
   /* padding: 4rem 1.5rem; */
@@ -713,7 +711,7 @@ header {
   text-decoration: none;
   background-color: #ffffff;
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: 15px;
   /* border: 1px solid rgba(235, 235, 235, 0.5); */
   border: 1px solid #682e53d8;
   color: #333;
@@ -1009,7 +1007,8 @@ header {
 .testimonial-card {
   background-color: #ffffff;
   padding: 2rem;
-  border-radius: 10px;
+  border: 1px solid #cccbcb98;
+  border-radius: 15px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
   text-align: left;
 }
