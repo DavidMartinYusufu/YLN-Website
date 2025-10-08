@@ -197,6 +197,11 @@ header {
   }
 }
 
+nav img {
+  width: 110px;
+  height: auto;
+}
+
 /* Dropdown styles */
 .nav-item {
   position: relative;
