@@ -191,6 +191,11 @@ header {
   }
 }
 
+nav img {
+  width: 110px;
+  height: auto;
+}
+
 /* Dropdown styles */
 .nav-item {
   position: relative;
@@ -263,7 +268,7 @@ header {
 }
 
 .what-we-do-section {
-  padding: 4rem .5rem;
+  padding: 4rem 0.5rem;
   background-color: #f9f9fb;
   color: #333;
   max-width: 1200px;
@@ -273,7 +278,7 @@ header {
 .what-we-do-section h2 {
   color: #5e2b4b;
   font-size: 2rem;
-  margin: 0rem 0rem 1.5rem 0rem ;
+  margin: 0rem 0rem 1.5rem 0rem;
   text-align: center;
   /* font-family: "montser"; */
 }
@@ -285,10 +290,10 @@ header {
 .intro-text {
   max-width: 800px;
   margin: 0 auto 3rem auto;
-  padding: 0rem 1rem 0rem 1rem ;
+  padding: 0rem 1rem 0rem 1rem;
   font-size: 1.1rem;
   text-align: center;
-} 
+}
 
 .wwd-row {
   display: flex;
